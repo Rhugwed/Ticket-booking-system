@@ -9,40 +9,42 @@ public class Theatre {
         setLocation(location);
         setSeatingCapacity(seatingCapacity);
     }
-
-    // Getter and Setter for Location
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        if (location == null || location.trim().isEmpty()) {
-            throw new IllegalArgumentException("Location cannot be null or empty.");
-        }
-        this.location = location;
-    }
-
-    // Getter and Setter for Seating Capacity
+    //  getter and setter for seating capacity
     public int getSeatingCapacity() {
         return seatingCapacity;
     }
 
     public void setSeatingCapacity(int seatingCapacity) {
         if (seatingCapacity <= 0) {
-            throw new IllegalArgumentException("Seating capacity must be greater than zero.");
+            throw new IllegalArgumentException("Seating capacity must be more than zero.");
         }
         this.seatingCapacity = seatingCapacity;
     }
 
-    // Insert Theatre Details
-    public void insertTheater(String location, int seatingCapacity) {
-        setLocation(location);
-        setSeatingCapacity(seatingCapacity);
-        System.out.println("Theater details set: Location = " + this.location + ", Seating Capacity = " + this.seatingCapacity);
+    // Location's getter and setter
+    public String getLocation() {
+        return location;
     }
 
-    // Placeholder for displaying theater details
-    public void showTheaters() {
-        System.out.println("Displaying theater details is not implemented yet.");
+    public void setLocation(String location) {
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException("The location cannot be empty or null.");
+        }
+        this.location = location;
+    }
+
+    
+
+    // Insert Details of Theatre
+    public void insertTheatre(String location, int seatingCapacity) {
+        setLocation(location);
+        setSeatingCapacity(seatingCapacity);
+        System.out.println("Theatre details set: Location = " + this.location + ", Seating Capacity = " + this.seatingCapacity);
+    }
+
+    //A placeholder for the theatre's details
+    public void showTheatres() {
+        System.out.println(" Location:" + location);
+        System.out.println(" Seating Capacity:" + seatingapacity);
     }
 }
