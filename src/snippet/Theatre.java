@@ -47,10 +47,10 @@ public class Theatre {
         System.out.println(" Location:" + location);
         System.out.println(" Seating Capacity:" + seatingCapacity);
     }
+ // toString method for displaying theatre details
+    @Override
+    public String toString() {
+        return "Location: " + location + ", Seating Capacity: " + seatingCapacity;
+    }
+}
 
-// toString method for displaying theatre details
-@Override
-public String toString() {
-    return "Location: " + location + ", Seating Capacity: " + seatingCapacity;
-}
-}
