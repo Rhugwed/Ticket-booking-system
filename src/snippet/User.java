@@ -3,14 +3,32 @@ package snippet;
 import java.util.Scanner;
 
 public class User {
-    // Instance fields
-    private String name, username, password, address, phone;
+
+    // Instance fields for user management
+    private String name, username, address, phone;
     private int choice;
     private Scanner sc = new Scanner(System.in);
 
     // Dependencies
-    private Showtime showtimeManager = new Showtime(); // Manage showtimes
-    private Booking bookingManager = new Booking(); // Manage ticket bookings
+    private Booking bookingManager = new Booking(); // Manages bookings
+    private Showtime showtimeManager = new Showtime(); // Manages showtimes
+
+    // Constructor to initialize user details
+    public User(String name, String username, String password, String address, String phone) {
+        this.name = name;
+        this.username = username;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    // Method to display user information
+    public void displayUserInfo() {
+        System.out.println("User Information:");
+        System.out.println("Name: " + name);
+        System.out.println("Username: " + username);
+        System.out.println("Address: " + address);
+        System.out.println("Phone: " + phone);
+    }
 
     // User menu
     public void userMenu(int userID) {
@@ -25,32 +43,21 @@ public class User {
             choice = sc.nextInt();
 
             switch (choice) {
-                // Case 1: View all showtimes
                 case 1:
-                    viewShowtimes();
+                    viewShowtimes(); // Call showtimes directly from Showtime
                     break;
-
-                // Case 2: Book a ticket
                 case 2:
-                    bookTicket(userID);
+                    bookTicket(userID); // Delegate to Booking class
                     break;
-
-                // Case 3: View ticket bookings
                 case 3:
-                    viewTicketBookings(userID);
+                    viewTicketBookings(userID); // Delegate to Booking class
                     break;
-
-                // Case 4: Cancel a ticket booking
                 case 4:
-                    cancelTicketBooking(userID);
+                    cancelTicketBooking(userID); // Delegate to Booking class
                     break;
-
-                // Case 5: Exit
                 case 5:
                     System.out.println("Exiting User Menu. Goodbye!");
                     return;
-
-                // Default: Invalid choice
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -59,41 +66,21 @@ public class User {
 
     // Case 1: View all showtimes
     private void viewShowtimes() {
-        showtimeManager.showShowtimes();
+        showtimeManager.showShowtimes(); // Display showtimes using Showtime class
     }
 
     // Case 2: Book a ticket
     private void bookTicket(int userID) {
-        try {
-            System.out.print("Enter Showtime ID to book: ");
-            int showtimeID = sc.nextInt();
-
-            bookingManager.bookTicket(userID, showtimeID);
-            System.out.println("Ticket booked successfully.");
-        } catch (Exception e) {
-            System.out.println("Error booking ticket: " + e.getMessage());
-        }
+        bookingManager.bookTicket(userID); // Delegate to Booking class
     }
 
     // Case 3: View ticket bookings
     private void viewTicketBookings(int userID) {
-        try {
-            bookingManager.seeTicket(userID);
-        } catch (Exception e) {
-            System.out.println("Error viewing ticket bookings: " + e.getMessage());
-        }
+        bookingManager.seeTicket(userID); // Delegate to Booking class
     }
 
     // Case 4: Cancel a ticket booking
     private void cancelTicketBooking(int userID) {
-        try {
-            System.out.print("Enter Booking ID to cancel: ");
-            int bookingID = sc.nextInt();
-
-            bookingManager.cancelTicket(userID, bookingID);
-            System.out.println("Ticket canceled successfully.");
-        } catch (Exception e) {
-            System.out.println("Error canceling ticket: " + e.getMessage());
-        }
+        bookingManager.cancelTicket(userID); // Delegate to Booking class
     }
 }
