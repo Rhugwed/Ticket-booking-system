@@ -1,6 +1,6 @@
 package snippet;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Showtime {
@@ -17,18 +17,18 @@ public class Showtime {
         int showtimeID;
         int movieID;
         int theaterID;
-        Timestamp showtime;
+        LocalDateTime showtime;
 
-        public ShowtimeRecord(int showtimeID, int movieID, int theaterID, Timestamp showtime) {
+        public ShowtimeRecord(int showtimeID, int movieID, int theaterID, LocalDateTime showtime2) {
             this.showtimeID = showtimeID;
             this.movieID = movieID;
             this.theaterID = theaterID;
-            this.showtime = showtime;
+            this.showtime = showtime2;
         }
     }
 
     // Method to insert a showtime (simulated insertion into in-memory list)
-    public void insertShowtime(int movieID, int theaterID, Timestamp showtime) {
+    public void insertShowtime(int movieID, int theaterID, LocalDateTime showtime) {
         if (movieID <= 0 || theaterID <= 0 || showtime == null) {
             throw new IllegalArgumentException("Invalid input: movieID, theaterID, and showtime must be provided correctly.");
         }
