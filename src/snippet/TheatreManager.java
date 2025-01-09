@@ -11,14 +11,34 @@ public class TheatreManager {
         theatres = new ArrayList<>();
     }
 
-    // To add a new theatre
     public void addTheatre(String location, int seatingCapacity) {
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException("Location cannot be empty.");
+        }
+        if (seatingCapacity <= 0) {
+            throw new IllegalArgumentException("Seating capacity must be greater than zero.");
+        }
+
         Theatre theatre = new Theatre(location, seatingCapacity);
         theatres.add(theatre);
-        System.out.println("Theatre added: " + theatre);
+        System.out.println("Theater added successfully: " + theatre);
+    }
+    
+ // to get total count of theatre
+    public int getTheatreCount() {
+        return theatres.size();
+    }
+    // To get a specific theater by index
+    public Theatre getTheatre(int index) {
+        if (index < 0 || index >= theatres.size()) {
+            throw new IndexOutOfBoundsException("Invalid index. No such theatre exists.");
+        }
+        return theatres.get(index);
     }
 
-    // to update existing theatre details
+
+
+     // to update existing theatre details
     public void updateTheatre(int index, String newLocation, int newSeatingCapacity) {
         if (index < 0 || index >= theatres.size()) {
             throw new IndexOutOfBoundsException("Invalid index. No such theatre exists.");
