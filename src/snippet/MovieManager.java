@@ -39,6 +39,10 @@ public class MovieManager {
 
     // Search for a movie by title
     public Movie searchMovie(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be null or empty.");
+        }
+
         for (Movie movie : movies) {
             if (movie.getTitle().equalsIgnoreCase(title)) {
                 return movie;
@@ -46,5 +50,22 @@ public class MovieManager {
         }
         return null; // Movie not found
     }
-}
 
+    // Get the number of movies
+    public int getMovieCount() {
+        return movies.size();
+    }
+
+    // Get a specific movie by index
+    public Movie getMovie(int index) {
+        if (index < 0 || index >= movies.size()) {
+            throw new IndexOutOfBoundsException("Invalid index. No such movie exists.");
+        }
+        return movies.get(index);
+    }
+
+    // Clear all movies (optional, useful for tests)
+    public void clearMovies() {
+        movies.clear();
+    }
+}
