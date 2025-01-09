@@ -2,6 +2,8 @@ package test.whitebox;
 
 import static org.junit.Assert.*; // For assertions
 import org.junit.Test;            // For @Test annotation
+
+import snippet.Theatre;
 import snippet.TheatreManager;
 
 public class TheatreManagerTest {
@@ -29,4 +31,30 @@ public class TheatreManagerTest {
         TheatreManager manager = new TheatreManager();     
         manager.addTheatre("PVR", -50); 
     }
+    @Test
+    public void testUpdateTheatre_ValidInputs() {
+        TheatreManager manager = new TheatreManager();
+
+        manager.addTheatre("Luxe", 300);
+        manager.updateTheatre(0, "Cinepolis", 400);
+        Theatre updatedTheatre = manager.getTheatre(0);
+        assertEquals("Cinepolis", updatedTheatre.getLocation());
+        assertEquals(400, updatedTheatre.getSeatingCapacity());
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateTheatre_EmptyLocation() {
+        TheatreManager manager = new TheatreManager();
+        manager.addTheatre("Luxe", 300);
+        manager.updateTheatre(0, "", 400);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateTheatre_NegativeSeatingCapacity() {
+        TheatreManager manager = new TheatreManager();
+        manager.addTheatre("Luxe", 300);
+        manager.updateTheatre(0, "Cinepolis", -10);
+    }
+
+    
 }
