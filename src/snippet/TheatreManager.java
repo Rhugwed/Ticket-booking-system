@@ -21,7 +21,7 @@ public class TheatreManager {
 
         Theatre theatre = new Theatre(location, seatingCapacity);
         theatres.add(theatre);
-        System.out.println("Theater added successfully: " + theatre);
+        System.out.println("Theatre added successfully: " + theatre);
     }
     
  // to get total count of theatre
