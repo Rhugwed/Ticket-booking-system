@@ -1,10 +1,11 @@
 package test.whitebox;
+import snippet.TheatreManager;
+import snippet.Theatre;
 
 import static org.junit.Assert.*; // For assertions
 import org.junit.Test;            // For @Test annotation
 
-import snippet.Theatre;
-import snippet.TheatreManager;
+
 
 public class TheatreManagerTest {
 	// Test case 1: Adding new theatre
@@ -56,5 +57,16 @@ public class TheatreManagerTest {
         manager.updateTheatre(0, "Cinepolis", -10);
     }
 
-    
+    @Test
+    public void testRemoveTheatre_ValidIndex() {
+        TheatreManager manager = new TheatreManager();
+        manager.addTheatre("IMAX", 400); //adding a theatre
+
+        // Remove the first theatre 
+        manager.removeTheatre(0);
+
+        // The theatre list should be empty
+        assertEquals(0, manager.getTheatreCount());
+    }
+
 }
