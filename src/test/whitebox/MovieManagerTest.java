@@ -40,4 +40,21 @@ public class MovieManagerTest {
         // Act: Add a movie with a negative duration
         manager.addMovie("Inception", "Sci-Fi", -148); 
     }
+   
+        
+    
+ // Test Case 4: Preventing Duplication of Movies
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddMovie_DuplicateMovie() {
+        MovieManager manager = new MovieManager();
+
+        // Add the first instance of the movie
+        manager.addMovie("Avengers", "Action", 160);
+
+        // Act: Attempt to add a duplicate movie
+        manager.addMovie("Avengers", "Action", 160); // Should throw IllegalArgumentException
+    }
+
+
+
 }
