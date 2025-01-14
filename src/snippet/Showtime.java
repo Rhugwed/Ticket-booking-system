@@ -5,15 +5,15 @@ import java.util.*;
 
 public class Showtime {
 
-    private List<ShowtimeDetails> showtimes; // List to store showtime records in memory
-    private int nextShowtimeID = 1; // Auto-increment for ShowtimeID
+    private List<ShowtimeDetails> showtimes;
+    private int nextShowtimeID = 1; 
 
-    // Constructor to initialize the list
+    
     public Showtime() {
         showtimes = new ArrayList<>();
     }
 
-    // Inner class to represent a Showtime record
+    
     public class ShowtimeDetails {
         int showtimeID;
         int movieID;
@@ -33,7 +33,7 @@ public class Showtime {
         }
     }
 
-    // Method to insert a showtime (simulated insertion into in-memory list)
+    
     public void insertShowtime(int movieID, int theatreID, LocalDateTime showtime) {
         if (movieID <= 0 || theatreID <= 0 || showtime == null) {
             throw new IllegalArgumentException("Invalid input: movieID, theatreID, and showtime must be provided correctly.");
@@ -44,7 +44,7 @@ public class Showtime {
         System.out.println("Showtime added successfully: " + newShowtime);
     }
 
-    // Method to show all showtimes
+    
     public void showShowtimes() {
         if (showtimes.isEmpty()) {
             System.out.println("No showtimes available.");
@@ -57,7 +57,7 @@ public class Showtime {
         }
     }
 
-    // Method to show specific showtime details by showtimeID
+    
     public void showShowtimeDetails(int showtimeID) {
         if (showtimeID <= 0) {
             throw new IllegalArgumentException("Invalid showtime ID.");
@@ -74,19 +74,19 @@ public class Showtime {
         }
     }
 
-    // Method to get the theater's seating capacity for a given showtime ID (dummy function for now)
+    
     public int getTheatreCapacity(int showtimeID) {
         if (showtimeID <= 0) {
             throw new IllegalArgumentException("Invalid showtime ID.");
         }
 
-        // Dummy seating capacity for the purpose of testing
-        int dummySeatingCapacity = 150; // Replace with actual logic if needed
+        
+        int dummySeatingCapacity = 150; 
         System.out.println("Seating Capacity for Showtime ID " + showtimeID + ": " + dummySeatingCapacity);
         return dummySeatingCapacity;
     }
 
-    // Method to remove a showtime by ID
+    
     public void removeShowtime(int showtimeID) {
         if (showtimeID <= 0) {
             throw new IllegalArgumentException("Invalid showtime ID.");
@@ -100,8 +100,15 @@ public class Showtime {
         }
     }
 
-    // Method to get the total number of showtimes
+
     public int getShowtimeCount() {
         return showtimes.size();
+    }
+
+    public int removeExpiredShowtimes() {
+        int initialSize = showtimes.size();
+        LocalDateTime now = LocalDateTime.now();
+        showtimes.removeIf(showtime -> showtime.showtime.isBefore(now));
+        return initialSize - showtimes.size(); 
     }
 }
