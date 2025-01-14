@@ -5,13 +5,11 @@ import java.util.Scanner;
 
 public class Admin {
 
-    // Instance fields
     private TheatreManager theatreManager;
     private MovieManager movieManager;
     private Showtime showtimeManager;
     private Scanner sc;
 
-    // Constructor
     public Admin(TheatreManager theatreManager, MovieManager movieManager, Showtime showtimeManager) {
         this.theatreManager = theatreManager;
         this.movieManager = movieManager;
@@ -19,12 +17,11 @@ public class Admin {
         this.sc = new Scanner(System.in); // Initialize scanner
     }
 
-    // Method to reset the Scanner (for testing)
+
     public void resetScanner() {
         sc = new Scanner(System.in);
     }
 
-    // Admin menu (if needed in interactive mode)
     public void adminMenu() {
         while (true) {
             System.out.println("\n---------- Admin Menu ----------");
@@ -32,7 +29,7 @@ public class Admin {
             System.out.println("2. View All Theatres");
             System.out.println("3. Add Showtime for a Movie");
             System.out.println("4. View All Showtimes");
-            System.out.println("5. Count Total Showtimes"); // New option for counting showtimes
+            System.out.println("5. Count Total Showtimes"); 
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
@@ -52,7 +49,7 @@ public class Admin {
                     viewShowtimes();
                     break;
                 case 5:
-                    countShowtimes(); // Call the new method
+                    countShowtimes(); 
                     break;
                 case 6:
                     System.out.println("Exiting Admin Menu. Goodbye!");
@@ -63,11 +60,10 @@ public class Admin {
         }
     }
 
-    // Add a new theatre
     private void addTheatre() {
         try {
             System.out.print("Enter theatre location: ");
-            sc.nextLine(); // Clear the buffer
+            sc.nextLine(); 
             String location = sc.nextLine();
             System.out.print("Enter seating capacity: ");
             int seatingCapacity = sc.nextInt();
@@ -79,12 +75,10 @@ public class Admin {
         }
     }
 
-    // View all theatres
     private void viewTheatres() {
         theatreManager.showAllTheatres();
     }
 
-    // Add a new showtime
     public void addShowtime() {
         try {
             System.out.print("Enter Movie ID: ");
@@ -116,16 +110,14 @@ public class Admin {
             System.out.println("Showtime added successfully.");
         } catch (Exception e) {
             System.out.println("Error adding showtime: " + e.getMessage());
-            e.printStackTrace(); // Provide full stack trace for debugging
+            e.printStackTrace();
         }
     }
 
-    // View all showtimes
     public void viewShowtimes() {
         showtimeManager.showShowtimes();
     }
 
-    // Count total showtimes
     public void countShowtimes() {
         int totalShowtimes = showtimeManager.getShowtimeCount();
         if (totalShowtimes == 0) {
