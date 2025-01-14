@@ -44,6 +44,7 @@ public class TheatreManagerTest {
     }
     
     @Test(expected = IllegalArgumentException.class)
+
     public void testUpdateTheatre_EmptyLocation() {
         TheatreManager manager = new TheatreManager();
         manager.addTheatre("Luxe", 300);
@@ -70,3 +71,5 @@ public class TheatreManagerTest {
     }
 
 }
+
+
