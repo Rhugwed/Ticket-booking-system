@@ -1,40 +1,48 @@
 package snippet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Admin {
 
     // Instance fields
-    private Scanner sc = new Scanner(System.in);
-    private int choice;
-    private String location;
-    private int seatingCapacity, theaterID, movieID, showtimeHour, showtimeMinute;
+    private TheatreManager theatreManager;
+    private MovieManager movieManager;
+    private Showtime showtimeManager;
+    private Scanner sc;
 
-    // Objects of other classes
-    private Showtime showtimeManager = new Showtime();
-    private List<Theatre> theatres = new ArrayList<>(); // In-memory storage for theatres
+    // Constructor
+    public Admin(TheatreManager theatreManager, MovieManager movieManager, Showtime showtimeManager) {
+        this.theatreManager = theatreManager;
+        this.movieManager = movieManager;
+        this.showtimeManager = showtimeManager;
+        this.sc = new Scanner(System.in); // Initialize scanner
+    }
 
-    // Admin menu
+    // Method to reset the Scanner (for testing)
+    public void resetScanner() {
+        sc = new Scanner(System.in);
+    }
+
+    // Admin menu (if needed in interactive mode)
     public void adminMenu() {
         while (true) {
             System.out.println("\n---------- Admin Menu ----------");
-            System.out.println("1. Add Theater");
-            System.out.println("2. View All Theaters");
+            System.out.println("1. Add Theatre");
+            System.out.println("2. View All Theatres");
             System.out.println("3. Add Showtime for a Movie");
             System.out.println("4. View All Showtimes");
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
-            choice = sc.nextInt();
+            int choice = sc.nextInt();
 
             switch (choice) {
                 case 1:
-                    addTheater();
+                    addTheatre();
                     break;
                 case 2:
-                    viewTheaters();
+                    viewTheatres();
                     break;
                 case 3:
                     addShowtime();
@@ -51,68 +59,64 @@ public class Admin {
         }
     }
 
-    // Case 1: Add a theater
-    private void addTheater() {
+    // Add a new theatre
+    private void addTheatre() {
         try {
-            System.out.print("Enter theater location: ");
-            sc.nextLine(); // Clear buffer
-            location = sc.nextLine();
+            System.out.print("Enter theatre location: ");
+            sc.nextLine(); // Clear the buffer
+            String location = sc.nextLine();
             System.out.print("Enter seating capacity: ");
-            seatingCapacity = sc.nextInt();
+            int seatingCapacity = sc.nextInt();
 
-            Theatre theatre = new Theatre(location, seatingCapacity);
-            theatres.add(theatre);
-            System.out.println("Theater added successfully.");
+            theatreManager.addTheatre(location, seatingCapacity);
+            System.out.println("Theatre added successfully.");
         } catch (Exception e) {
-            System.out.println("Error adding theater: " + e.getMessage());
+            System.out.println("Error adding theatre: " + e.getMessage());
         }
     }
 
-    // Case 2: View all theaters
-    private void viewTheaters() {
-        if (theatres.isEmpty()) {
-            System.out.println("No theaters available.");
-        } else {
-            System.out.println("Theater List:");
-            for (int i = 0; i < theatres.size(); i++) {
-                System.out.println("Theater ID: " + (i + 1));
-                theatres.get(i).showTheatres();
-                System.out.println("-----------------------------");
-            }
-        }
+    // View all theatres
+    private void viewTheatres() {
+        theatreManager.showAllTheatres();
     }
 
-    // Case 3: Add showtime for a movie
-    private void addShowtime() {
+    // Add a new showtime
+    public void addShowtime() {
         try {
             System.out.print("Enter Movie ID: ");
-            movieID = sc.nextInt();
-            System.out.print("Enter Theater ID (from the list): ");
-            theaterID = sc.nextInt();
+            int movieID = sc.nextInt();
+            System.out.println("Debug: Movie ID entered: " + movieID);
 
-            if (theaterID <= 0 || theaterID > theatres.size()) {
-                System.out.println("Invalid Theater ID. Please try again.");
+            if (!movieManager.isValidMovie(movieID)) {
+                System.out.println("Invalid Movie ID.");
+                return;
+            }
+
+            System.out.print("Enter Theatre ID (from the list): ");
+            int theatreID = sc.nextInt();
+            System.out.println("Debug: Theatre ID entered: " + theatreID);
+
+            if (!theatreManager.isValidTheatre(theatreID)) {
+                System.out.println("Invalid Theatre ID.");
                 return;
             }
 
             System.out.print("Enter Showtime Hour (24-hour format): ");
-            showtimeHour = sc.nextInt();
+            int hour = sc.nextInt();
             System.out.print("Enter Showtime Minute: ");
-            showtimeMinute = sc.nextInt();
+            int minute = sc.nextInt();
+            System.out.println("Debug: Showtime entered: " + hour + ":" + minute);
 
-            LocalDateTime showtime = LocalDateTime.now()
-                .withHour(showtimeHour)
-                .withMinute(showtimeMinute)
-                .withSecond(0);
-
-            showtimeManager.insertShowtime(movieID, theaterID, showtime);
+            LocalDateTime showtime = LocalDateTime.now().withHour(hour).withMinute(minute).withSecond(0);
+            showtimeManager.insertShowtime(movieID, theatreID, showtime);
             System.out.println("Showtime added successfully.");
         } catch (Exception e) {
             System.out.println("Error adding showtime: " + e.getMessage());
+            e.printStackTrace(); // Provide full stack trace for debugging
         }
     }
 
-    // Case 4: View all showtimes
+    // View all showtimes
     private void viewShowtimes() {
         showtimeManager.showShowtimes();
     }

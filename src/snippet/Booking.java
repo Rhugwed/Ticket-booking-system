@@ -33,7 +33,7 @@ public class Booking {
         int showtimeChoice = sc.nextInt();
 
         // Fetch the theater's seating capacity for the selected showtime
-        int capacity = showtimeManager.getTheaterCapacity(showtimeChoice);
+        int capacity = showtimeManager.getTheatreCapacity(showtimeChoice);
 
         // Find already booked seats for this showtime
         List<Integer> bookedSeats = getBookedSeats(showtimeChoice);

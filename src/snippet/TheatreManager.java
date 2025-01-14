@@ -23,12 +23,13 @@ public class TheatreManager {
         theatres.add(theatre);
         System.out.println("Theatre added successfully: " + theatre);
     }
-    
- // to get total count of theatre
+
+    // To get total count of theatres
     public int getTheatreCount() {
         return theatres.size();
     }
-    // To get a specific theater by index
+
+    // To get a specific theatre by index
     public Theatre getTheatre(int index) {
         if (index < 0 || index >= theatres.size()) {
             throw new IndexOutOfBoundsException("Invalid index. No such theatre exists.");
@@ -36,12 +37,22 @@ public class TheatreManager {
         return theatres.get(index);
     }
 
+    // To validate if a theatre ID is valid
+    public boolean isValidTheatre(int theatreID) {
+        return theatreID > 0 && theatreID <= theatres.size();
+    }
 
-
-     // to update existing theatre details
+    // To update existing theatre details
     public void updateTheatre(int index, String newLocation, int newSeatingCapacity) {
         if (index < 0 || index >= theatres.size()) {
             throw new IndexOutOfBoundsException("Invalid index. No such theatre exists.");
+        }
+
+        if (newLocation == null || newLocation.trim().isEmpty()) {
+            throw new IllegalArgumentException("New location cannot be empty.");
+        }
+        if (newSeatingCapacity <= 0) {
+            throw new IllegalArgumentException("New seating capacity must be greater than zero.");
         }
 
         Theatre theatre = theatres.get(index);
@@ -50,7 +61,7 @@ public class TheatreManager {
         System.out.println("Theatre updated: " + theatre);
     }
 
-    //To show all theatres
+    // To show all theatres
     public void showAllTheatres() {
         if (theatres.isEmpty()) {
             System.out.println("No theatres available.");
@@ -63,7 +74,7 @@ public class TheatreManager {
         }
     }
 
-    // To Remove a existing theatre 
+    // To remove an existing theatre
     public void removeTheatre(int index) {
         if (index < 0 || index >= theatres.size()) {
             throw new IndexOutOfBoundsException("Invalid index. No such theatre exists.");
@@ -75,6 +86,10 @@ public class TheatreManager {
 
     // To find a theatre by location
     public void findTheatreByLocation(String location) {
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException("Location cannot be empty.");
+        }
+
         boolean found = false;
         for (Theatre theatre : theatres) {
             if (theatre.getLocation().equalsIgnoreCase(location)) {
