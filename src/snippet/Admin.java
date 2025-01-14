@@ -32,7 +32,8 @@ public class Admin {
             System.out.println("2. View All Theatres");
             System.out.println("3. Add Showtime for a Movie");
             System.out.println("4. View All Showtimes");
-            System.out.println("5. Exit");
+            System.out.println("5. Count Total Showtimes"); // New option for counting showtimes
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -51,6 +52,9 @@ public class Admin {
                     viewShowtimes();
                     break;
                 case 5:
+                    countShowtimes(); // Call the new method
+                    break;
+                case 6:
                     System.out.println("Exiting Admin Menu. Goodbye!");
                     return;
                 default:
@@ -117,7 +121,17 @@ public class Admin {
     }
 
     // View all showtimes
-    private void viewShowtimes() {
+    public void viewShowtimes() {
         showtimeManager.showShowtimes();
+    }
+
+    // Count total showtimes
+    public void countShowtimes() {
+        int totalShowtimes = showtimeManager.getShowtimeCount();
+        if (totalShowtimes == 0) {
+            System.out.println("No showtimes available.");
+        } else {
+            System.out.println("Total number of showtimes: " + totalShowtimes);
+        }
     }
 }
