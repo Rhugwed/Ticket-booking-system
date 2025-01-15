@@ -2,7 +2,6 @@ package test.blackbox;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import snippet.Theatre;
 import snippet.TheatreManager;
 
 public class TheatreManagerBlackBoxTest1 {
