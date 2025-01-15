@@ -6,7 +6,7 @@ public class MainMenu {
 
     static Scanner sc = new Scanner(System.in);
 
-    static List<User> users = new ArrayList<>(); // In-memory list for users
+    public static List<User> users = new ArrayList<>(); // In-memory list for users
     static List<Admin> admins = new ArrayList<>(); // In-memory list for admins
 
  
@@ -15,7 +15,7 @@ public class MainMenu {
     static Showtime showtimeManager = new Showtime();
 
     
-    static void userSignup() {
+    public static void userSignup() {
         System.out.println("Enter your username: ");
         String username = sc.next();
 
