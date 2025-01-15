@@ -87,22 +87,28 @@ public class Admin {
         }
     }
 
-    private void addTheatre() {
+    public void addTheatre() {
         try {
             System.out.print("Enter theatre location: ");
-            sc.nextLine();
-            String location = sc.nextLine();
+            String location = sc.next(); // Use `next()` to directly capture a single word or token
+            sc.nextLine(); // Clear the remaining buffer
+            System.out.println("Debug: Location entered - " + location);
+
             System.out.print("Enter seating capacity: ");
             int seatingCapacity = sc.nextInt();
+            System.out.println("Debug: Seating capacity entered - " + seatingCapacity);
 
             theatreManager.addTheatre(location, seatingCapacity);
             System.out.println("Theatre added successfully.");
         } catch (Exception e) {
             System.out.println("Error adding theatre: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void viewTheatres() {
+
+
+    public void viewTheatres() {
         theatreManager.showAllTheatres();
     }
 
