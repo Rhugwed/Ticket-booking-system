@@ -7,9 +7,14 @@ import java.util.Scanner;
 public class Booking {
 
     // Dependencies
-    private Showtime showtimeManager = new Showtime();
+    private Showtime showtimeManager;
     private List<BookingRecord> bookings = new ArrayList<>(); // In-memory storage for bookings
     private Scanner sc = new Scanner(System.in);
+
+    // Constructor to ensure consistent Showtime instance
+    public Booking(Showtime showtimeManager) {
+        this.showtimeManager = showtimeManager;
+    }
 
     // Inner class to represent a booking record
     private static class BookingRecord {
@@ -24,46 +29,30 @@ public class Booking {
         }
     }
 
-    // Book a ticket
-    public void bookTicket(int userID) {
-        System.out.println("Available showtimes:");
-        showtimeManager.showShowtimes();
-
-        System.out.print("Enter your showtime choice (Showtime ID): ");
-        int showtimeChoice = sc.nextInt();
-
-        // Fetch the theater's seating capacity for the selected showtime
-        int capacity = showtimeManager.getTheatreCapacity(showtimeChoice);
-
-        // Find already booked seats for this showtime
-        List<Integer> bookedSeats = getBookedSeats(showtimeChoice);
-
-        // Display seat availability
-        System.out.println("---------- Available Seats ----------");
-        for (int i = 1; i <= capacity; i++) {
-            if (bookedSeats.contains(i)) {
-                System.out.print("X ");
-            } else {
-                System.out.print(i + " ");
-            }
-
-            if (i % 8 == 0) {
-                System.out.println(); // New line after every 8 seats
-            }
+    // Book a ticket with feedback for whitebox testing
+    public String bookTicketWithFeedback(int userID, int showtimeID, int seatNumber) {
+        // Validate showtime ID
+        if (!showtimeManager.isValidShowtime(showtimeID)) {
+            return "Error: Invalid showtime ID.";
         }
 
-        // User selects a seat
-        System.out.print("\nEnter the seat number of your choice: ");
-        int seatChoice = sc.nextInt();
+        // Fetch the theater's seating capacity for the selected showtime
+        int capacity = showtimeManager.getTheatreCapacity(showtimeID);
 
-        if (bookedSeats.contains(seatChoice)) {
-            System.out.println("Seat is already booked. Please choose a different seat.");
-            return;
+        // Validate seat number
+        if (seatNumber <= 0 || seatNumber > capacity) {
+            return "Error: Invalid seat number.";
+        }
+
+        // Find already booked seats for this showtime
+        List<Integer> bookedSeats = getBookedSeats(showtimeID);
+        if (bookedSeats.contains(seatNumber)) {
+            return "Error: Seat is already booked.";
         }
 
         // Add the booking record
-        bookings.add(new BookingRecord(userID, showtimeChoice, seatChoice));
-        System.out.println("Booking completed successfully!");
+        bookings.add(new BookingRecord(userID, showtimeID, seatNumber));
+        return "Booking confirmed. Showtime ID: " + showtimeID + ", Seat: " + seatNumber;
     }
 
     // View tickets booked by a user
@@ -131,8 +120,8 @@ public class Booking {
         return bookedSeats;
     }
 
-	public void viewAvailableShowtimes() {
-		// TODO Auto-generated method stub
-		
-	}
+    public void viewAvailableShowtimes() {
+        System.out.println("--- Available Showtimes ---");
+        showtimeManager.showShowtimes();
+    }
 }
