@@ -90,7 +90,7 @@ public class Admin {
     public void addTheatre() {
         try {
             System.out.print("Enter theatre location: ");
-            String location = sc.next(); // Use `next()` to directly capture a single word or token
+            String location = sc.next(); // Use next() to directly capture a single word or token
             sc.nextLine(); // Clear the remaining buffer
             System.out.println("Debug: Location entered - " + location);
 
