@@ -5,13 +5,17 @@ import java.util.Scanner;
 public class User {
 
     // Instance fields for user management
-    private String name, username, address, phone;
+    private String name;
+    private String username;
+    private String address;
+    private String phone;
     private int choice;
-    private Scanner sc = new Scanner(System.in);
+    private transient Scanner sc; // Mark as transient to avoid serialization issues
 
     // Dependencies
     private Showtime showtimeManager; // Define Showtime first
     private Booking bookingManager;   // Booking depends on Showtime
+	private String password;
 
     // Constructor to initialize user details and dependencies
     public User(String name, String username, String password, String address, String phone) {
@@ -19,8 +23,9 @@ public class User {
         this.username = username;
         this.address = address;
         this.phone = phone;
-
+        this.password= password;
         // Initialize dependencies
+        this.sc = new Scanner(System.in);
         this.showtimeManager = new Showtime();
         this.bookingManager = new Booking(showtimeManager);
     }
@@ -36,6 +41,11 @@ public class User {
 
     // User menu
     public void userMenu(int userID) {
+        // Ensure Scanner is initialized
+        if (sc == null) {
+            sc = new Scanner(System.in);
+        }
+
         while (true) {
             System.out.println("\n---------- User Menu ----------");
             System.out.println("1. View All Showtimes");
@@ -102,5 +112,26 @@ public class User {
     private void cancelTicketBooking(int userID) {
         System.out.println("--- Cancel a Ticket ---");
         bookingManager.cancelTicket(userID);
+    }
+
+    // Getters for username and other fields
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+ // Getter for password
+    public String getPassword() {
+        return password;
     }
 }
