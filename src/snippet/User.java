@@ -15,7 +15,7 @@ public class User {
     // Dependencies
     private Showtime showtimeManager; // Define Showtime first
     private Booking bookingManager;   // Booking depends on Showtime
-	private String password;
+    private String password;
 
     // Constructor to initialize user details and dependencies
     public User(String name, String username, String password, String address, String phone) {
@@ -23,7 +23,7 @@ public class User {
         this.username = username;
         this.address = address;
         this.phone = phone;
-        this.password= password;
+        this.password = password;
         // Initialize dependencies
         this.sc = new Scanner(System.in);
         this.showtimeManager = new Showtime();
@@ -52,7 +52,8 @@ public class User {
             System.out.println("2. Book a Ticket");
             System.out.println("3. View My Ticket Bookings");
             System.out.println("4. Cancel a Ticket Booking");
-            System.out.println("5. Exit");
+            System.out.println("5. Update Profile");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
 
@@ -70,6 +71,9 @@ public class User {
                     cancelTicketBooking(userID);
                     break;
                 case 5:
+                    updateProfile();
+                    break;
+                case 6:
                     System.out.println("Exiting User Menu. Goodbye!");
                     return;
                 default:
@@ -114,6 +118,39 @@ public class User {
         bookingManager.cancelTicket(userID);
     }
 
+    // Case 5: Update profile
+    public void updateProfile() {
+        System.out.println("--- Update Profile ---");
+        sc.nextLine(); // Consume the leftover newline
+
+        System.out.print("Enter new name (or press Enter to keep current): ");
+        String newName = sc.nextLine();
+        if (!newName.trim().isEmpty()) {
+            this.name = newName;
+        }
+
+        System.out.print("Enter new address (or press Enter to keep current): ");
+        String newAddress = sc.nextLine();
+        if (!newAddress.trim().isEmpty()) {
+            this.address = newAddress;
+        }
+
+        System.out.print("Enter new phone number (or press Enter to keep current): ");
+        String newPhone = sc.nextLine();
+        if (!newPhone.trim().isEmpty()) {
+            this.phone = newPhone;
+        }
+
+        System.out.print("Enter new password (or press Enter to keep current): ");
+        String newPassword = sc.nextLine();
+        if (!newPassword.trim().isEmpty()) {
+            this.password = newPassword;
+        }
+
+        System.out.println("Profile updated successfully!");
+        displayUserInfo();
+    }
+
     // Getters for username and other fields
     public String getUsername() {
         return username;
@@ -130,7 +167,8 @@ public class User {
     public String getPhone() {
         return phone;
     }
- // Getter for password
+
+    // Getter for password
     public String getPassword() {
         return password;
     }
