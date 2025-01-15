@@ -79,13 +79,13 @@ public class User {
     }
 
     // Case 1: View all showtimes
-    private void viewShowtimes() {
+    public void viewShowtimes() {
         System.out.println("--- Available Showtimes ---");
         showtimeManager.showShowtimes();
     }
 
     // Case 2: Book a ticket
-    private void bookTicket(int userID) {
+    public void bookTicket(int userID) {
         System.out.println("--- Book a Ticket ---");
 
         // Display available showtimes
@@ -103,13 +103,13 @@ public class User {
     }
 
     // Case 3: View ticket bookings
-    private void viewTicketBookings(int userID) {
+    public void viewTicketBookings(int userID) {
         System.out.println("--- Your Bookings ---");
         bookingManager.seeTicket(userID);
     }
 
     // Case 4: Cancel a ticket booking
-    private void cancelTicketBooking(int userID) {
+    public void cancelTicketBooking(int userID) {
         System.out.println("--- Cancel a Ticket ---");
         bookingManager.cancelTicket(userID);
     }
