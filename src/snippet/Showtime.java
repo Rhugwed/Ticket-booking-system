@@ -111,4 +111,21 @@ public class Showtime {
         showtimes.removeIf(showtime -> showtime.showtime.isBefore(now));
         return initialSize - showtimes.size(); 
     }
+
+   
+
+	public boolean isValidShowtime(int showtimeID) {
+		 if (showtimeID <= 0) {
+	            return false; // Invalid ID
+	        }
+
+	        for (ShowtimeDetails showtime : showtimes) {
+	            if (showtime.showtimeID == showtimeID) {
+	                return true; // Found a valid showtime
+	            }
+	        }
+
+	        return false; // Showtime ID not found
+		
+	}
 }
