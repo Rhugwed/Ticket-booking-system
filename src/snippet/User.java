@@ -11,6 +11,7 @@ public class User {
     private String phone;
     private int choice;
     private transient Scanner sc; // Mark as transient to avoid serialization issues
+    private String walletDetails;  // New field for storing wallet/payment details
 
     // Dependencies
     private Showtime showtimeManager; // Define Showtime first
@@ -24,6 +25,7 @@ public class User {
         this.address = address;
         this.phone = phone;
         this.password = password;
+        this.walletDetails = "";  // Default empty wallet details
         // Initialize dependencies
         this.sc = new Scanner(System.in);
         this.showtimeManager = new Showtime();
@@ -37,6 +39,11 @@ public class User {
         System.out.println("Username: " + username);
         System.out.println("Address: " + address);
         System.out.println("Phone: " + phone);
+        if (!walletDetails.isEmpty()) {
+            System.out.println("Wallet Details: " + walletDetails);  // Display wallet details if available
+        } else {
+            System.out.println("Wallet Details: Not added.");
+        }
     }
 
     // User menu
@@ -53,7 +60,8 @@ public class User {
             System.out.println("3. View My Ticket Bookings");
             System.out.println("4. Cancel a Ticket Booking");
             System.out.println("5. Update Profile");
-            System.out.println("6. Exit");
+            System.out.println("6. Manage Wallet/Payment Details");  // New option to manage wallet
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
 
@@ -74,6 +82,9 @@ public class User {
                     updateProfile();
                     break;
                 case 6:
+                    manageWalletDetails();  // Call the new wallet management method
+                    break;
+                case 7:
                     System.out.println("Exiting User Menu. Goodbye!");
                     return;
                 default:
@@ -151,6 +162,24 @@ public class User {
         displayUserInfo();
     }
 
+    // Case 6: Manage Wallet/Payment Details
+    public void manageWalletDetails() {
+        System.out.println("--- Manage Wallet/Payment Details ---");
+
+        System.out.print("Enter new wallet details (or press Enter to keep current): ");
+        sc.nextLine(); // Consume the newline
+        String newWalletDetails = sc.nextLine();
+
+        if (!newWalletDetails.trim().isEmpty()) {
+            this.walletDetails = newWalletDetails;
+            System.out.println("Wallet details updated successfully.");
+        } else {
+            System.out.println("No changes made to wallet details.");
+        }
+
+        displayUserInfo();
+    }
+
     // Getters for username and other fields
     public String getUsername() {
         return username;
@@ -171,5 +200,10 @@ public class User {
     // Getter for password
     public String getPassword() {
         return password;
+    }
+
+    // Getter for wallet details
+    public String getWalletDetails() {
+        return walletDetails;
     }
 }
