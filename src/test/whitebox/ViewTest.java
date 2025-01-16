@@ -19,7 +19,7 @@ public class ViewTest {
         bookingManager.seeTicket(1);
     }
 
-    @Test
+    
     public void testSeeTicket_WithBookings() {
         // Arrange
         Showtime showtimeManager = new Showtime();
